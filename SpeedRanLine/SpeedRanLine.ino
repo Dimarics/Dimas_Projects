@@ -1,11 +1,11 @@
-int timer;
+int sum = 0;
 
 const int RIGHT_SENCE = 14;
 const int MIDDLE_SENCE = 15;
 const int LEFT_SENCE = 16;
 
-const int RightMotorSpeed = 100;
-const int LeftMotorSpeed = 100;
+const int RightMotorSpeed = 90;
+const int LeftMotorSpeed = 90;
 
 const int RightMotorPin = 9;
 const int RightMotorIn1 = 7;
@@ -40,19 +40,23 @@ void loop() {
   Serial.print(" Left sensor: ");
   Serial.println (leftSenseState);
 
-  if (leftSenseState == 1 && middleSenseState == 0 && rightSenseState == 0) { left (); } // - 100 влево
+  if (leftSenseState == 1 && middleSenseState == 0 && rightSenseState == 0) { left (); sum = 0;} // - 100 влево
     
-  else if (leftSenseState == 0 && middleSenseState == 0 && rightSenseState == 1) { right(); } // 001 - вправо
+  else if (leftSenseState == 0 && middleSenseState == 0 && rightSenseState == 1) { right(); sum = 0;} // 001 - вправо
     
-  else if (leftSenseState == 1 && middleSenseState == 1 && rightSenseState == 0) { right(); } // 110 - вправо
+  else if (leftSenseState == 1 && middleSenseState == 1 && rightSenseState == 0) { right(); sum = 0;} // 110 - вправо
   
-  else if (leftSenseState == 0 && middleSenseState == 1 && rightSenseState == 1) { left(); } // 011 - влево
+  else if (leftSenseState == 0 && middleSenseState == 1 && rightSenseState == 1) { left(); sum = 0;} // 011 - влево
   
-  else if (leftSenseState == 1 && middleSenseState == 1 && rightSenseState == 1) { left(); } // 111 - влево
+  else if (leftSenseState == 1 && middleSenseState == 1 && rightSenseState == 1) { left(); sum = 0;} // 111 - влево
   
   else if (leftSenseState == 0 && middleSenseState == 0 && rightSenseState == 0) { // 000 - назад
-    backward();
-    timer = millis ();
+    sum = sum + 1;
+    if (leftSenseState == 0 && middleSenseState == 0 && rightSenseState == 0 && sum >= 10) {
+      sum = 0;
+      backward();
+      delay (50);
+    }
   } 
 
   else   { forward (); }
