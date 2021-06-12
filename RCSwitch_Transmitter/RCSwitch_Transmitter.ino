@@ -1,13 +1,23 @@
 #include <RCSwitch.h>
 RCSwitch mySwitch = RCSwitch();
+RCSwitch mySwitch2 = RCSwitch();
+int power;
 
 void setup() {
-  mySwitch.enableTransmit(2);
+  mySwitch.enableTransmit(4);
+  mySwitch2.enableReceive(1);
+  Serial.begin (9600);
+  pinMode (A5, INPUT);
 }
 
 void loop() {
-  mySwitch.send (B0100);
-  delay (1000);
-  mySwitch.send (B1000);
-  delay (1000);
+  power = analogRead(A5);
+  int siz = sizeof(power);
+  mySwitch.send (power, 16);
+  delay (200);
+  
+  if (mySwitch2.available()) {
+    Serial.println(mySwitch2.getReceivedValue());
+    mySwitch.resetAvailable();
+  }
 }
