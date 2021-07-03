@@ -3,8 +3,13 @@
 #include <TroykaDHT.h>
 #include <iarduino_RF433_Receiver.h>    // Подключаем библиотеку для работы с приёмником
 
+<<<<<<< HEAD:Radio_DHT_Receiver/Radio_DHT_Receiver.ino
 iarduino_RF433_Receiver radioRX(3);    // Создаём объект radioRX с указанием пина приёмника
 int rec[2];   // Создаём переменную для приёма темперауры
+=======
+iarduino_RF433_Receiver    radioRX(3);    // Создаём объект radioRX с указанием пина приёмника
+int rec[2];   // Создаём переменную для приёма данных
+>>>>>>> df686cbd34efba45a04a187b8d361bb5f66cea0c:RadioDHT/Radio_DHT_Receiver.ino
      
 void setup() {
   Serial.begin(9600);    // открываем последовательный порт для мониторинга действий в программе
